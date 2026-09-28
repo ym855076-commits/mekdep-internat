@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mekdep-Internat Kömekçi ulgamy | Лебапская школа-интернат</title>
+    
+    <!-- Настройки для установки на рабочий стол и работы офлайн (PWA) -->
+    <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Mekdep-Internat%20Komekci%20Ulgamy%22%2C%22short_name%22%3A%22MekdepUlgam%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%230284c7%22%7D">
+    <meta name="theme-color" content="#0284c7">
+
     <style>
         :root {
             --primary-color: #0284c7;
@@ -349,6 +354,19 @@
             </div>
         </div>
 
+        <!-- Блок с QR-кодом -->
+        <div class="card" style="text-align: center;">
+            <h2 class="lang-tk" style="justify-content: center;">📱 QR-kod bilen açmak</h2>
+            <h2 class="lang-ru" style="justify-content: center;">📱 Открыть по QR-коду</h2>
+            <div class="sub-block" style="display: inline-block; background: white; padding: 10px; border-radius: 10px; margin-top: 10px;">
+                <img src="qrcode.png" alt="QR Code" style="width: 150px; height: 150px; display: block;">
+            </div>
+            <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 8px;">
+                <span class="lang-tk">Ulgamy tiz açmak üçin telefonyňyz bilen skanirläň</span>
+                <span class="lang-ru">Сканируйте телефоном для быстрого доступа</span>
+            </p>
+        </div>
+
         <!-- Avtor: Murzaew Yusup terbiyçi -->
         <div class="author-box">
             <h3 class="lang-tk">👨‍💻 Taslamanyň awtory: Murzaew Yusup (terbiýeçi)</h3>
@@ -438,6 +456,16 @@
             
             loadHabits();
         };
+
+        // Регистрация оффлайн-режима (Service Worker)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = "self.addEventListener('fetch', function(event) {});";
+                const blob = new Blob([swCode], {type: 'text/javascript'});
+                const swUrl = URL.createObjectURL(blob);
+                navigator.serviceWorker.register(swUrl).catch(() => {});
+            });
+        }
     </script>
 
 </body>
