@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="tk" id="htmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mekdep-Internat Kömekçi ulgamy | Лебапская школа-интернат</title>
+    <style>
+        :root {
+            --primary-color: #0284c7;
+            --primary-hover: #0369a1;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --card-text: #f8fafc;
+            --accent-color: #38bdf8;
+            --border-color: #334155;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--card-text);
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            position: relative;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+        }
+        .lang-switch {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .lang-switch:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        header h1 { margin: 0 0 5px 0; font-size: 1.15rem; font-weight: 700; }
+        header p { margin: 0; font-size: 0.8rem; opacity: 0.95; }
+        .container { padding: 12px; max-width: 800px; margin: auto; }
+        
+        .card {
+            background: var(--card-bg);
+            padding: 16px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s;
+        }
+        .card h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+            font-size: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Таблицы */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #475569;
+            padding: 6px;
+            text-align: left;
+        }
+        th { background-color: #334155; color: var(--accent-color); }
+        tr:nth-child(even) { background-color: rgba(255, 255, 255, 0.02); }
+
+        .schedule-item {
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 8px;
+        }
+        .schedule-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+        .sub-block {
+            background: #0f172a;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .mini-card {
+            background: #0f172a;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 0.78rem;
+            text-align: center;
+        }
+        .mini-card strong { color: var(--accent-color); display: block; margin-bottom: 4px; }
+
+        /* Чекбоксы для привычек */
+        .habit-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .habit-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+        .habit-list input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+        .habit-list input[type="checkbox"]:checked + span {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .author-box {
+            text-align: center;
+            background: var(--card-bg);
+            padding: 18px;
+            border-radius: 14px;
+            margin-top: 20px;
+            border: 1px dashed var(--accent-color);
+        }
+        .author-box h3 { margin: 0 0 5px 0; color: var(--accent-color); font-size: 0.95rem; }
+        .author-box p { margin: 0; font-size: 0.8rem; color: #94a3b8; }
+        
+        footer { text-align: center; padding: 20px; color: #64748b; font-size: 0.75rem; }
+        
+        /* Классы для анимации языков */
+        .lang-tk, .lang-ru {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="lang-switch" onclick="toggleLanguage()">RU / TK</button>
+        <h1 class="lang-tk">Lebap welaýat ýörite umumybilim berýän mekdep-internaty</h1>
+        <h1 class="lang-ru">Лебапская специальная общеобразовательная школа-интернат</h1>
+        <p class="lang-tk">5-nji ker, çala eşidýän we soň ker bolan çagalar üçin</p>
+        <p class="lang-ru">Для слабослышащих и позднооглохших детей</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- О программе / Barada -->
+        <div class="card" style="border-color: #38bdf8;">
+            <h2 class="lang-tk">ℹ️ Ulgam barada (О программе)</h2>
+            <h2 class="lang-ru">ℹ️ О программе и проекте</h2>
+            <div class="sub-block" style="font-size: 0.82rem;">
+                <span class="lang-tk">Bu okuw-usulyýet we kömekçi ulgamy çala eşidýän hem-de ker çagalaryň terbiýeçilik işlerini, gündelik endiklerini, sözleýiş we durmuş başarnyklaryny ösdürmek üçin döredildi.</span>
+                <span class="lang-ru">Данная учебно-методическая вспомогательная система разработана для поддержки воспитательной работы, развития ежедневных навыков, речи и социальной адаптации слабослышащих и позднооглохших детей.</span>
+            </div>
+        </div>
+
+        <!-- Актуальные законы и концепции Туркменистана -->
+        <div class="card" style="border-color: #10b981;">
+            <h2 style="color: #10b981;" class="lang-tk">📜 Türkmenistanyň Kanunçylygy we Döwlet Ýörelgeleri</h2>
+            <h2 style="color: #10b981;" class="lang-ru">📜 Законодательство и государственные концепции Туркменистана</h2>
+            <div class="sub-block" style="border-left-color: #10b981; font-size: 0.82rem;">
+                <span class="lang-tk">
+                - <strong>Türkmenistanyň «Bilim hakynda» Kanuny:</strong> Ýörite bilime we sosial goldawa mätäç çagalaryň döwlet tarapyndan doly üpjün edilmegi, hünär öwrenmegi we jemgyýete işjeň goşulmagy.<br>
+                - <strong>Bilim ministrliginiň kadalaşdyryjy namalary (2026):</strong> Okuw-terbiýeçilik işlerini döwrebap talaplara we sanly ulgama laýyklykda kämilleşdirmek.<br>
+                - <strong>Çagalaryň hukuklary we bähbitleri:</strong> Sagdyn durmuş ýörelgesini berjaý etmek, ruhy-ahlak, milli miras we watançylyk terbiýesini berkitmek boýunça döwlet maksatnamalary.
+                </span>
+                <span class="lang-ru">
+                - <strong>Закон Туркменистана «Об образовании»:</strong> Государственные гарантии прав на образование детей, нуждающихся в особой социальной поддержке и заботе, создание специальных условий для их адаптации и развития.<br>
+                - <strong>Нормативные акты и регламенты (2026 г.):</strong> Внедрение современных стандартов учебно-воспитательной работы и методического обеспечения в профильных учреждениях.<br>
+                - <strong>Государственные программы воспитания:</strong> Принципы здорового образа жизни, духовно-нравственного, гражданско-патриотического воспитания и трудовой социализации молодежи.
+                </span>
+            </div>
+        </div>
+
+        <!-- Terbiýeçilik Gün Tertibi -->
+        <div class="card">
+            <h2 class="lang-tk">🕒 Terbiýeçilik Gün Tertibi</h2>
+            <h2 class="lang-ru">🕒 Распорядок дня воспитательной работы</h2>
+            <table>
+                <tr>
+                    <th>t/b / №</th>
+                    <th>Mazmuny / Содержание</th>
+                    <th>1-4 synp</th>
+                    <th>5-12 synp</th>
+                </tr>
+                <tr><td>1</td><td>Ukudan oýarmak / Подъем</td><td>7:00-7:10</td><td>7:00-7:10</td></tr>
+                <tr><td>2</td><td>Bedeni maşklar / Зарядка</td><td>7:10-7:25</td><td>7:10-7:25</td></tr>
+                <tr><td>3</td><td>Şahsy arassaçylyk / Личная гигиена</td><td>7:25-7:50</td><td>7:25-7:50</td></tr>
+                <tr><td>4</td><td>Ertirlik nahary / Завтрак</td><td>7:50-8:20</td><td>7:50-8:20</td></tr>
+                <tr><td>5</td><td>Ders sapaklary / Уроки</td><td>8:30-13:05</td><td>8:30-14:00</td></tr>
+                <tr><td>6</td><td>Günortanlyk nahary / Обед</td><td>14:00-14:40</td><td>14:00-14:40</td></tr>
+                <tr><td>7</td><td>Öý ýumuşlary / Самоподготовка</td><td>16:30-17:30</td><td>16:00-18:00</td></tr>
+                <tr><td>8</td><td>Terbiýeçilik sagatlary / Час воспитателя</td><td>17:30-18:00</td><td>18:00-18:30</td></tr>
+                <tr><td>9</td><td>Agşamlyk nahary / Ужин</td><td>19:00-19:30</td><td>19:00-19:30</td></tr>
+                <tr><td>10</td><td>Uky (dynç alyş) / Сон</td><td>21:00-7:00</td><td>21:00-7:00</td></tr>
+            </table>
+        </div>
+
+        <!-- 1. Gündelik Arassaçylyk we Endikler -->
+        <div class="card">
+            <h2 class="lang-tk">🧼 Gündelik Arassaçylyk we Irki Endikler</h2>
+            <h2 class="lang-ru">🧼 Утренняя гигиена и личные привычки</h2>
+            <div class="sub-block">
+                <div class="lang-tk" style="margin-bottom: 8px;"><strong>Sen näme etdiň? (Галочками отметь выполненное):</strong></div>
+                <div class="lang-ru" style="margin-bottom: 8px;"><strong>Отметьте выполненные утренние дела:</strong></div>
+                
+                <ul class="habit-list">
+                    <li><input type="checkbox" id="h1" onchange="saveHabits()"><span><span class="lang-tk">Men turdum</span><span class="lang-ru">Я встал</span></span></li>
+                    <li><input type="checkbox" id="h2" onchange="saveHabits()"><span><span class="lang-tk">Düşegimi arassa ýygnadym</span><span class="lang-ru">Аккуратно застелил постель</span></span></li>
+                    <li><input type="checkbox" id="h3" onchange="saveHabits()"><span><span class="lang-tk">Dişimi pastalap çotga bilen arassaladym</span><span class="lang-ru">Почистил зубы пастой и щеткой</span></span></li>
+                    <li><input type="checkbox" id="h4" onchange="saveHabits()"><span><span class="lang-tk">El-ýüzümi ýuwdum, sülgä süpürdim</span><span class="lang-ru">Вымыл лицо и руки, вытер полотенцем</span></span></li>
+                    <li><input type="checkbox" id="h5" onchange="saveHabits()"><span><span class="lang-tk">Saçymy owadanlap daradym</span><span class="lang-ru">Причесал волосы</span></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. Naharhanada we Iýmitler -->
+        <div class="card">
+            <h2 class="lang-tk">🍲 Naharhanada: Iýmitler we İçgiler</h2>
+            <h2 class="lang-ru">🍲 В столовой: Блюда и напитки</h2>
+            <div class="grid-cards">
+                <div class="mini-card"><strong>Çorba / Süýti aş</strong>Мясной / молочный суп</div>
+                <div class="mini-card"><strong>Palaw / Gutap</strong>Плов / Гутап</div>
+                <div class="mini-card"><strong>Mäşli çorba / Köje</strong>Суп из маша / Кёдже</div>
+                <div class="mini-card"><strong>Şekerli çaý / Gatyk</strong>Сладкий чай / Катык</div>
+            </div>
+            <div class="sub-block" style="margin-top: 10px; font-size: 0.8rem;">
+                <span class="lang-tk"><strong>Gerekli esbaplar:</strong> Çemçe, kružka, çomuç, tabak, piti, çäýnek, sabyn, sülgi, darak.</span>
+                <span class="lang-ru"><strong>Столовые приборы и вещи:</strong> Ложка, кружка, половник, тарелка, пити, чайник, мыло, полотенце, расческа.</span>
+            </div>
+        </div>
+
+        <!-- 3. Synpda Okuw Çäreleri -->
+        <div class="card">
+            <h2 class="lang-tk">📚 Synpda Okuw we Zähmet</h2>
+            <h2 class="lang-ru">📚 Учебный процесс и труд</h2>
+            <div class="sub-block">
+                <span class="lang-tk">
+                - <strong>Okarys / Okadyk:</strong> Kitap okamagy öwretmek (Читаем / Читали)<br>
+                - <strong>Mysal çözéris / Çözdük:</strong> Matematiki mysallar (Решаем / Решили примеры)<br>
+                - <strong>Ýazarys / Ýazdyk:</strong> Yazgy işleri (Пишем / Написали)<br>
+                - <strong>Surat çekéris / Çekdik:</strong> Surat çekmek (Рисуем / Нарисовали)<br>
+                - <strong>Güllere ideg ederis / Etdik:</strong> Ekologik terbiýe (Ухаживаем / Ухаживали за цветами)
+                </span>
+                <span class="lang-ru">
+                - Обучение чтению, решение примеров, письмо, рисование, уход за цветами (настоящее и прошедшее время).
+                </span>
+            </div>
+        </div>
+
+        <!-- 4. Fiziki Maşklar we Sport -->
+        <div class="card">
+            <h2 class="lang-tk">🤸 Beden-maşklary we Sport Oýunlary</h2>
+            <h2 class="lang-ru">🤸 Физические упражнения и спорт</h2>
+            <div class="sub-block">
+                <span class="lang-tk"><strong>Sen näme etdiň? — Men maşk etdim!</strong><br>
+                Irki beden-maşklary, «Kegli», «Basketbol» we hereketli milli oýunlar arkaly sagdyn durmuş ýörelgesini berjaý etmek.</span>
+                <span class="lang-ru"><strong>Что ты сделал? — Я сделал зарядку!</strong><br>
+                Утренние упражнения, спортивные игры («Кегли», «Баскетбол») и подвижные игры для здорового образа жизни.</span>
+            </div>
+        </div>
+
+        <!-- 5. Türkmen Barmak Elipbiýi -->
+        <div class="card">
+            <h2 class="lang-tk">🔤 Türkmen Barmak Elipbiýi (Жестовый язык)</h2>
+            <h2 class="lang-ru">🔤 Туркменский дактильный (жестовый) алфавит</h2>
+            <div class="sub-block" style="font-size: 0.8rem;">
+                <span class="lang-tk">Çala eşidýän we ker çagalar üçin türkmen elipbiýiniň harplaryny barmaklar arkaly görkezmek usulyýeti (A-dan Z-ä çenli, şol sanda Ä, Ç, Ň, Ö, Ş, Ü, Ž).</span>
+                <span class="lang-ru">Методика дактилестирования букв туркменского алфавита для слабослышащих и глухих детей (включая специфические буквы Ä, Ç, Ň, Ö, Ş, Ü, Ž).</span>
+            </div>
+        </div>
+
+        <!-- Terbiýeçiniň Hepdelik İş Meýilnamasy -->
+        <div class="card">
+            <h2 class="lang-tk">📅 Terbiýeçiniň Hepdelik İş Meýilnamasy</h2>
+            <h2 class="lang-ru">📅 Календарный план воспитательной работы по дням</h2>
+            
+            <div class="schedule-item">
+                <strong>1. Duşenbe / Понедельник (15:00–15:30 / 17:30–18:00):</strong><br>
+                <span class="lang-tk">1. Hereketli oýunlar | 2. Ruhy ahlak, sagdyn durmuş ýörelgesiniň terbiýesi.</span>
+                <span class="lang-ru">1. Подвижные игры | 2. Духовно-нравственное воспитание и основы здорового образа жизни.</span>
+            </div>
+            
+            <div class="schedule-item">
+                <strong>2. Sişenbe / Вторник (15:00–15:30 / 17:30–18:00):</strong><br>
+                <span class="lang-tk">1. Sport oýunlary | 2. Sapakdan daşary okuw.</span>
+                <span class="lang-ru">1. Спортивные игры | 2. Внеклассное чтение / занятия.</span>
+            </div>
+
+            <div class="schedule-item">
+                <strong>3. Çarşenbe / Среда (15:00–15:30 / 17:30–18:00):</strong><br>
+                <span class="lang-tk">1. Jemgyýete peýdaly zähmet | 2. Durmuş, gözelik, ekologik terbiýe.</span>
+                <span class="lang-ru">1. Общественно полезный труд | 2. Бытовое, эстетическое и экологическое воспитание.</span>
+            </div>
+
+            <div class="schedule-item">
+                <strong>4. Penşenbe / Четверг (15:00–15:30 / 17:30–18:00):</strong><br>
+                <span class="lang-tk">1. Hojalyk zähmet | 2. Sapakdan daşary okuw.</span>
+                <span class="lang-ru">1. Хозяйственный труд | 2. Внеклассное чтение / занятия.</span>
+            </div>
+
+            <div class="schedule-item">
+                <strong>5. Anna / Пятница (15:00–15:30 / 17:30–18:00):</strong><br>
+                <span class="lang-tk">1. Milli oýunlar | 2. Medeni taryhy, raýat-harby watançylyk terbiýesi.</span>
+                <span class="lang-ru">1. Национальные игры | 2. Историко-культурное и военно-патриотическое воспитание.</span>
+            </div>
+
+            <div class="schedule-item">
+                <strong>6. Şenbe / Суббота (Günüň ikinji ýarymda / Во 2-й половине дня):</strong><br>
+                <span class="lang-tk">Arassaçylyk we abadanlaşdyryş işleri.</span>
+                <span class="lang-ru">Работы по благоустройству, чистоте и санитарному порядку.</span>
+            </div>
+
+            <div class="schedule-item">
+                <strong>7. Ýekşenbe / Воскресенье (Günüň 1-nji ýarymda / В 1-й половине дня):</strong><br>
+                <span class="lang-tk">Milli we sport oýunlary, gezelençler, jemgyýete peýdaly zähmet, dynç alyş çäreler.</span>
+                <span class="lang-ru">Национальные и спортивные игры, прогулки, общественно полезный труд, культурный отдых.</span>
+            </div>
+        </div>
+
+        <!-- Avtor: Murzaew Yusup terbiyçi -->
+        <div class="author-box">
+            <h3 class="lang-tk">👨‍💻 Taslamanyň awtory: Murzaew Yusup (terbiýeçi)</h3>
+            <h3 class="lang-ru">👨‍💻 Автор проекта: Murzaew Yusup (тербийичи / воспитатель)</h3>
+            <p class="lang-tk">Lebap welaýat ýörite mekdep-internaty</p>
+            <p class="lang-ru">Лебапская специальная общеобразовательная школа-интернат</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Lebap welaýat ýörite mekdep-internaty. Ähli hukuklar goralan.</p>
+    </footer>
+
+    <script>
+        let currentLang = localStorage.getItem('appLang') || 'tk';
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('appLang', lang);
+            document.getElementById('htmlRoot').setAttribute('lang', lang);
+            
+            const tkElements = document.querySelectorAll('.lang-tk');
+            const ruElements = document.querySelectorAll('.lang-ru');
+            
+            if (lang === 'ru') {
+                tkElements.forEach(el => {
+                    el.style.opacity = 0;
+                    setTimeout(() => el.style.display = 'none', 300);
+                });
+                setTimeout(() => {
+                    ruElements.forEach(el => {
+                        el.style.display = 'block';
+                        setTimeout(() => el.style.opacity = 1, 50);
+                    });
+                }, 300);
+            } else {
+                ruElements.forEach(el => {
+                    el.style.opacity = 0;
+                    setTimeout(() => el.style.display = 'none', 300);
+                });
+                setTimeout(() => {
+                    tkElements.forEach(el => {
+                        el.style.display = 'block';
+                        setTimeout(() => el.style.opacity = 1, 50);
+                    });
+                }, 300);
+            }
+        }
+
+        function toggleLanguage() {
+            let newLang = currentLang === 'tk' ? 'ru' : 'tk';
+            applyLanguage(newLang);
+        }
+
+        function saveHabits() {
+            for (let i = 1; i <= 5; i++) {
+                let checkbox = document.getElementById('h' + i);
+                if (checkbox) {
+                    localStorage.setItem('habit_' + i, checkbox.checked);
+                }
+            }
+        }
+
+        function loadHabits() {
+            for (let i = 1; i <= 5; i++) {
+                let checkbox = document.getElementById('h' + i);
+                let savedState = localStorage.getItem('habit_' + i);
+                if (checkbox && savedState !== null) {
+                    checkbox.checked = (savedState === 'true');
+                }
+            }
+        }
+
+        window.onload = function() {
+            document.getElementById('htmlRoot').setAttribute('lang', currentLang);
+            const tkElements = document.querySelectorAll('.lang-tk');
+            const ruElements = document.querySelectorAll('.lang-ru');
+            
+            if (currentLang === 'ru') {
+                tkElements.forEach(el => { el.style.display = 'none'; el.style.opacity = 0; });
+                ruElements.forEach(el => { el.style.display = 'block'; el.style.opacity = 1; });
+            } else {
+                ruElements.forEach(el => { el.style.display = 'none'; el.style.opacity = 0; });
+                tkElements.forEach(el => { el.style.display = 'block'; el.style.opacity = 1; });
+            }
+            
+            loadHabits();
+        };
+    </script>
+
+</body>
+</html>
